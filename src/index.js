@@ -1,31 +1,14 @@
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import { render } from "react-dom";
-import 'bootstrap';
-var ReactForms = require('react-forms')
-var Schema = ReactForms.schema.Schema
-var Property = ReactForms.schema.Property
-var Form, List = ReactForms.Form
+import App from "./components/App";
+import configureStore from './redux/configureStore'
+import { Provider as ReduxProvider } from 'react-redux';
 
-function Person(props) {
-  props = props || {}
-  return (
-    <Schema name={props.name} label={props.label}>
-      <Property name="first" label="First name" />
-      <Property name="last" label="Last name" />
-    </Schema>
-  )
-}
-
-var family = (
-  <Schema>
-    <Person name="mother" label="Mother" />
-    <Person name="father" label="Father" />
-    <List name="children" label="Children">
-      <Person />
-    </List>
-  </Schema>
-)
+const store = configureStore();
 
 render(
-  <Form schema={family} />,
-  document.getElementById('example'))
+  <ReduxProvider store={store}>
+  <App />
+  </ReduxProvider>,
+  document.getElementById('app'))
