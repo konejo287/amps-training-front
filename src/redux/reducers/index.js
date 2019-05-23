@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import courses from './courseReducer';
+import customers from './customerReducer';
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
-    courses: courses,
+    customers: customers,
     form: formReducer
 })
 

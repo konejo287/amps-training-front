@@ -1,73 +1,63 @@
 import React from "react";
 import { connect } from 'react-redux';
-import * as courseActions from '../redux/actions/courseActions';
+import * as customerActions from '../redux/actions/customerActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import ContactForm from './ContacForm';
 
 class App extends React.Component {
-
-    state = {
+    
+    /*state = {
         firstName: "",
         lastName: "",
         email: ""
-    };
+    };   //quito este state completo*/
 
-    handleChange = () => {
-        const registry = { ...this.state };
-        this.setState({ registry: registry });
+    componentDidMount() {
+        const { customers, actions } = this.props;
+
+        actions.loadCustomers().catch(error => {
+            alert('there was an error when loading customers ' , error);
+        })
     }
 
-    handleSubmit = (event, values) => {
+    handleSubmit = (values) => {
         console.log(values);
-        event.preventDefault();
-        this.props.actions.createCourse(this.state);
+        const customers = { ...values };
+        this.setState({ customers: customers });
+        this.props.actions.createCustomer(this.state);
     }
 
     render() {
         return (
             <div>
                 <ContactForm onSubmit={this.handleSubmit} />,
-                { 
-                    this.props.registry.map(register => (
+                {
+                 /* this.props.registry.map(register => (
                         <div key={register.firstName}>{register.firstName}{register.lastName}</div>
-                    ))
+                    )) */
                 }
             </div>
-            /*<form onSubmit={this.handleSubmit}>
-                <h2>Courses</h2>
-                <h3>Add course</h3>
-                <input 
-                    type="text"
-                    onChange={this.handleChange}
-                    value={this.state.course.title}
-                />
-                
-                <input type="submit" value="Save"/>
-                { 
-                    this.props.courses.map(course => (
-                        <div key={course.title}>{course.title}</div>
-                    ))
-                }
-            </form>*/
         );
     }
 }
 
 App.propTypes = {
-    registry: PropTypes.array.isRequired,
+    customers: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
     return {
-        registry: state
+        customers: state
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(courseActions, dispatch)
+        actions: {
+            loadCustomers: bindActionCreators(customerActions.loadCustomers, dispatch)
+          }
     }
 }
 
