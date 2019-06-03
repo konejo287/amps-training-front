@@ -4,33 +4,35 @@ import * as customerActions from '../redux/actions/customerActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import ContactForm from './ContacForm';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 class App extends React.Component {
-    
-    /*state = {
-        firstName: "",
-        lastName: "",
-        email: ""
-    };   //quito este state completo*/
 
     componentDidMount() {
-        const { customers, actions } = this.props;
+        const { actions } = this.props;
 
-        actions.loadCustomers().catch(error => {
-            alert('there was an error when loading customers ' , error);
+        actions.loadCustomers()
+        .catch(error => {
+            console.log('there was an error when loading customers ' , error);
         })
     }
 
     handleSubmit = (values) => {
-        console.log(values);
+        /*console.log(values);
         const customers = { ...values };
         this.setState({ customers: customers });
-        this.props.actions.createCustomer(this.state);
+        this.props.actions.createCustomer(this.state);*/
     }
 
     render() {
         return (
             <div>
+                 <BootstrapTable data={ this.props.customers } striped hover>
+                    <TableHeaderColumn isKey dataField='id'>Customer ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='first_name'>Name</TableHeaderColumn>
+                    <TableHeaderColumn dataField='last_name'>lastName</TableHeaderColumn>
+                </BootstrapTable>,
                 <ContactForm onSubmit={this.handleSubmit} />,
                 {
                  /* this.props.registry.map(register => (
@@ -43,13 +45,13 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    customers: PropTypes.object.isRequired,
+    customers: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
     return {
-        customers: state
+        customers: state.customers
     }
 }
 

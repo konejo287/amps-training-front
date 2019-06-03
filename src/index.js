@@ -4,6 +4,7 @@ import { render } from "react-dom";
 import App from "./components/App";
 import configureStore from './redux/configureStore'
 import { Provider as ReduxProvider } from 'react-redux';
+import { BrowseerRouter as Router } from 'react-router-dom';
 
 const store = configureStore();
 
