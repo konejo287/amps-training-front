@@ -1,15 +1,13 @@
 import React from "react";
-import { connect } from 'react-redux';
-import * as customerActions from '../redux/actions/customerActions';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import ContactForm from './ContacForm';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import { Route, Switch } from "react-router-dom";
+
+import Header from "../components/common/Header";
+//import HomePage from "./home/HomePage";
+import CustomersPage from "./customers/CustomersPage";
 
 class App extends React.Component {
 
-    componentDidMount() {
+    /*componentDidMount() {
         const { actions } = this.props;
 
         actions.loadCustomers()
@@ -19,10 +17,10 @@ class App extends React.Component {
     }
 
     handleSubmit = (values) => {
-        /*console.log(values);
+        console.log(values);
         const customers = { ...values };
         this.setState({ customers: customers });
-        this.props.actions.createCustomer(this.state);*/
+        this.props.actions.createCustomer(this.state);
     }
 
     render() {
@@ -37,7 +35,7 @@ class App extends React.Component {
                 {
                  /* this.props.registry.map(register => (
                         <div key={register.firstName}>{register.firstName}{register.lastName}</div>
-                    )) */
+                    )) 
                 }
             </div>
         );
@@ -61,6 +59,19 @@ function mapDispatchToProps(dispatch) {
             loadCustomers: bindActionCreators(customerActions.loadCustomers, dispatch)
           }
     }
-}
+}*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+render() {
+    return (
+      <div className="container-fluid">
+            <Switch>
+                <Header />
+                <Route exact path="/" component={HomePage} />
+                <Route path="/about" component={CustomersPage} />
+            </Switch>
+      </div>
+    );
+  }
+}
+//export default connect(mapStateToProps, mapDispatchToProps)(App);h
+export default App;
