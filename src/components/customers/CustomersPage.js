@@ -28,12 +28,19 @@ class CustomersPage extends React.Component {
 
     render() {
         return (
-            <div>
-                <BootstrapTable data={ this.props.customers } striped hover>
-                    <TableHeaderColumn isKey dataField='id'>Customer ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='first_name'>Name</TableHeaderColumn>
-                    <TableHeaderColumn dataField='last_name'>lastName</TableHeaderColumn>
-                </BootstrapTable>
+          <div className="container">
+              <div className="row">
+                <div className="col">
+                  <ContactForm />
+                </div>
+                <div className="col">
+                    <BootstrapTable data={ this.props.customers } striped hover>
+                        <TableHeaderColumn isKey dataField='id'>Customer ID</TableHeaderColumn>
+                        <TableHeaderColumn dataField='first_name'>Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='last_name'>lastName</TableHeaderColumn>
+                    </BootstrapTable>
+                </div>
+              </div>
                 {
                  /* this.props.registry.map(register => (
                         <div key={register.firstName}>{register.firstName}{register.lastName}</div>
