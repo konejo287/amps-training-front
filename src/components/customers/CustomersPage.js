@@ -20,10 +20,9 @@ class CustomersPage extends React.Component {
     }
 
     handleSubmit = (values) => {
-        console.log(values);
         const customers = { ...values };
-        this.setState({ customers: customers });
-        this.props.actions.createCustomer(this.state);
+        console.log('values' , customers);
+        this.props.actions.createCustomer(customers);     //actions.createCustomer(this.state);
     }
 
     render() {
@@ -31,7 +30,7 @@ class CustomersPage extends React.Component {
           <div className="container">
               <div className="row">
                 <div className="col">
-                  <ContactForm />
+                  <ContactForm onSubmit={ this.handleSubmit } />
                 </div>
                 <div className="col">
                     <BootstrapTable data={ this.props.customers } striped hover>
@@ -65,7 +64,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: {
-            loadCustomers: bindActionCreators(customerActions.loadCustomers, dispatch)
+            loadCustomers: bindActionCreators(customerActions.loadCustomers, dispatch),
+            createCustomer: bindActionCreators(customerActions.createCustomer, dispatch)
           }
     }
 }

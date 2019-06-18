@@ -6,16 +6,12 @@ let ContactForm = props => {
     return (
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="firstName">First Name</label>
-          <Field name="firstName" component="input" type="text" />
+          <label htmlFor="first_name">First Name</label>
+          <Field name="first_name" component="input" type="text" />
         </div>
         <div>
-          <label htmlFor="lastName">Last Name</label>
-          <Field name="lastName" component="input" type="text" />
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <Field name="email" component="input" type="email" />
+          <label htmlFor="last_name">Last Name</label>
+          <Field name="last_name" component="input" type="text" />
         </div>
         <button type="submit">Submit</button>
       </form>
