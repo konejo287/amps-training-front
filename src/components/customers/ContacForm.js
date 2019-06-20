@@ -7,13 +7,15 @@ let ContactForm = props => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="first_name">First Name</label>
-          <Field name="first_name" component="input" type="text" />
+          <Field className="form-control" name="first_name" component="input" type="text" />
         </div>
+        <br></br>
         <div>
           <label htmlFor="last_name">Last Name</label>
-          <Field name="last_name" component="input" type="text" />
+          <Field className="form-control" name="last_name" component="input" type="text" />
         </div>
-        <button type="submit">Submit</button>
+        <br></br>
+        <button className="btn btn-primary" type="submit">Submit</button>
       </form>
     )
   }

@@ -19,21 +19,33 @@ class CustomersPage extends React.Component {
         })
     }
 
+    selectRowProp = {
+        mode: 'checkbox'
+    };
+
+    options = {
+        afterDeleteRow: this.onAfterDeleteRow
+    };
+
+    onAfterDeleteRow = (rowKeys) => {
+        console.log('after on delete ' , rowKeys[0] , this.props);
+        
+    }
+
     handleSubmit = (values) => {
         const customers = { ...values };
-        console.log('values' , customers);
-        this.props.actions.createCustomer(customers);     //actions.createCustomer(this.state);
+        this.props.actions.createCustomer(customers);
     }
 
     render() {
         return (
-          <div className="container">
+            <div>
               <div className="row">
-                <div className="col">
+                <div className="col-5">
                   <ContactForm onSubmit={ this.handleSubmit } />
                 </div>
                 <div className="col">
-                    <BootstrapTable data={ this.props.customers } striped hover>
+                    <BootstrapTable data={ this.props.customers } deleteRow={ true } selectRow={ this.selectRowProp } options={ this.options } striped hover>
                         <TableHeaderColumn isKey dataField='id'>Customer ID</TableHeaderColumn>
                         <TableHeaderColumn dataField='first_name'>Name</TableHeaderColumn>
                         <TableHeaderColumn dataField='last_name'>lastName</TableHeaderColumn>
@@ -65,7 +77,8 @@ function mapDispatchToProps(dispatch) {
     return {
         actions: {
             loadCustomers: bindActionCreators(customerActions.loadCustomers, dispatch),
-            createCustomer: bindActionCreators(customerActions.createCustomer, dispatch)
+            createCustomer: bindActionCreators(customerActions.createCustomer, dispatch),
+            deleteCustomer: bindActionCreators(customerActions.createCustomer, dispatch)
           }
     }
 }

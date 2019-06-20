@@ -8,6 +8,9 @@ export default function customerReducer(state = [], action) {
         case types.LOAD_CUSTOMERS_SUCCESS:
             console.log('action customers: ' , action.customers);
             return action.customers;
+         case types.DELETE_CUSTOMER_SUCCESS:
+            console.log('REDUCER DELETE CUSTOMER', action.customers);
+            return action.customers;
         default:
             return state;
     }
