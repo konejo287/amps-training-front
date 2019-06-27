@@ -15,7 +15,7 @@ export function loadCustomersSuccess(customers) {
 export function deleteCustomer(id) {
     return function(dispatch) {
         console.log('front deleting');
-        return fetch('http://localhost:8641/' + id, {
+        return fetch('http://localhost:8641/customers/' + id, {
             method: 'DELETE'
         }).then(response => {
             response.json().then(data => {

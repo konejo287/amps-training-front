@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import * as customerActions from '../../redux/actions/customerActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
+import CustomersTable from './CustomersTable';
 import ContactForm from './ContacForm';
+import { conditionalExpression } from "@babel/types";
 
 class CustomersPage extends React.Component {
 
@@ -17,19 +17,6 @@ class CustomersPage extends React.Component {
         .catch(error => {
             console.log('there was an error when loading customers ' , error);
         })
-    }
-
-    selectRowProp = {
-        mode: 'checkbox'
-    };
-
-    options = {
-        afterDeleteRow: this.onAfterDeleteRow
-    };
-
-    onAfterDeleteRow = (rowKeys) => {
-        console.log('after on delete ' , rowKeys[0] , this.props);
-        
     }
 
     handleSubmit = (values) => {
@@ -45,11 +32,7 @@ class CustomersPage extends React.Component {
                   <ContactForm onSubmit={ this.handleSubmit } />
                 </div>
                 <div className="col">
-                    <BootstrapTable data={ this.props.customers } deleteRow={ true } selectRow={ this.selectRowProp } options={ this.options } striped hover>
-                        <TableHeaderColumn isKey dataField='id'>Customer ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField='first_name'>Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField='last_name'>lastName</TableHeaderColumn>
-                    </BootstrapTable>
+                  <CustomersTable customers={this.props.customers} actions={this.props}/>
                 </div>
               </div>
                 {
@@ -78,8 +61,8 @@ function mapDispatchToProps(dispatch) {
         actions: {
             loadCustomers: bindActionCreators(customerActions.loadCustomers, dispatch),
             createCustomer: bindActionCreators(customerActions.createCustomer, dispatch),
-            deleteCustomer: bindActionCreators(customerActions.createCustomer, dispatch)
-          }
+            deleteCustomer: bindActionCreators(customerActions.deleteCustomer, dispatch)
+        }
     }
 }
 
