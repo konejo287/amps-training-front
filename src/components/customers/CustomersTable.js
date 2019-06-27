@@ -16,7 +16,7 @@ const CustomersTable = props => {
     
     function onAfterDeleteRow() {
         let customerId = arguments[0][0];
-        customerActions.deleteCustomer(customerId);
+        
     }
 
     return (
