@@ -10,6 +10,7 @@ import { conditionalExpression } from "@babel/types";
 
 class CustomersPage extends React.Component {
 
+  
     componentDidMount() {
         const { actions } = this.props;
 
@@ -20,8 +21,24 @@ class CustomersPage extends React.Component {
     }
 
     handleSubmit = (values) => {
-        const customers = { ...values };
-        this.props.actions.createCustomer(customers);
+        const customer = { ...values, id: this.props.customers.length + 1 };
+        console.log('checking customer: ' , customer);
+        this.props.actions.createCustomer(customer);
+    }
+
+    selectRowProp = {
+        mode: 'checkbox'
+    };
+    
+    options = {
+        afterDeleteRow: this.onAfterDeleteRow.bind(this)
+    };
+    
+    onAfterDeleteRow() {
+        const { actions } = this.props;
+        let customerId = arguments[0][0];
+        
+        actions.deleteCustomer(customerId);
     }
 
     render() {
@@ -32,7 +49,7 @@ class CustomersPage extends React.Component {
                   <ContactForm onSubmit={ this.handleSubmit } />
                 </div>
                 <div className="col">
-                  <CustomersTable customers={this.props.customers} actions={this.props}/>
+                  <CustomersTable customers={this.props.customers} selectRowProp={this.selectRowProp} options={this.options}/>
                 </div>
               </div>
                 {
